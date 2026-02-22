@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Калькулятор дохода O-KEY AI — Юрий Гладков</title>
+
+<style>
+:root{--lime:#b8ff00;--lime10:rgba(184,255,0,0.10);--lb:rgba(184,255,0,0.22);--dark:#080c14;--s1:#0f1424;--s2:#161d30;--border:rgba(255,255,255,0.07);--text:#dde6ff;--muted:#697699;--blue:#4299ff;--red:#ff5555;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;}
+.hero{text-align:center;padding:70px 20px 56px;position:relative;overflow:hidden;background:linear-gradient(160deg,#080c14,#131e38,#080c14);}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:600px;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse,rgba(184,255,0,0.08) 0%,transparent 65%);}
+.tag{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--lb);background:var(--lime10);color:var(--lime);font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;padding:7px 20px;border-radius:40px;margin-bottom:24px;position:relative;z-index:1;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:blink 1.6s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(28px,6vw,60px);font-weight:900;line-height:1.05;position:relative;z-index:1;margin-bottom:14px;}
+.hero h1 em{color:var(--lime);font-style:normal;}
+.hero p{font-size:15px;color:var(--muted);max-width:500px;margin:0 auto;position:relative;z-index:1;line-height:1.7;}
+.hero p strong{color:var(--text);}
+.from{display:inline-flex;align-items:center;gap:12px;background:var(--s1);border:1px solid var(--border);border-radius:50px;padding:11px 24px;margin-top:30px;position:relative;z-index:1;}
+.from-ico{width:34px;height:34px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.from-name{font-size:14px;font-weight:800;}
+.from-role{font-size:11px;color:var(--muted);}
+.main{max-width:1020px;margin:0 auto;padding:48px 20px 80px;}
+.sc-lbl{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.sc-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
+.sc{padding:11px 22px;border-radius:40px;border:1.5px solid var(--border);background:transparent;color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.sc.on{background:var(--s2);border-color:var(--lime);color:var(--lime);}
+.sc:hover:not(.on){border-color:rgba(255,255,255,0.18);color:var(--text);}
+.layout{display:grid;grid-template-columns:1.15fr 1fr;gap:26px;align-items:start;}
+@media(max-width:720px){.layout{grid-template-columns:1fr;}}
+.box{background:var(--s1);border:1px solid var(--border);border-radius:24px;padding:32px 28px;}
+.box h3{font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:700;margin-bottom:28px;}
+.rg{margin-bottom:30px;}
+.rg-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.rg-lbl{font-size:13px;font-weight:700;}
+.rg-val{font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:700;color:var(--lime);background:var(--lime10);border-radius:10px;padding:3px 12px;min-width:54px;text-align:center;}
+.rg-hint{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.5;}
+input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:5px;outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--lime);cursor:pointer;box-shadow:0 0 0 4px rgba(184,255,0,0.15),0 2px 10px rgba(0,0,0,.5);transition:transform .15s;}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.15);}
+.results{display:flex;flex-direction:column;gap:13px;}
+.r-main{background:linear-gradient(135deg,rgba(184,255,0,0.11),rgba(184,255,0,0.03));border:1.5px solid var(--lb);border-radius:22px;padding:28px 24px;text-align:center;}
+.r-main-lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--lime);margin-bottom:6px;}
+.r-main-val{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(38px,8vw,60px);font-weight:900;color:var(--lime);line-height:1;}
+.r-main-note{font-size:12px;color:var(--muted);margin-top:8px;}
+.r-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.rc{background:var(--s2);border:1px solid var(--border);border-radius:18px;padding:16px 18px;}
+.rc-lbl{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.rc-val{font-family:'Arial Black',Arial,sans-serif;font-size:22px;font-weight:700;}
+.rc-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.r-bd{background:var(--s2);border:1px solid var(--border);border-radius:18px;padding:18px 20px;}
+.r-bd-title{font-size:12px;font-weight:800;margin-bottom:12px;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.row:last-child{border:none;padding-bottom:0;}
+.ml{color:var(--muted);}
+.g{color:var(--lime);font-weight:800;}
+.r{color:var(--red);font-weight:800;}
+.r-roi{background:var(--s2);border:1px solid var(--border);border-radius:18px;padding:18px 20px;}
+.r-roi-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.r-roi-lbl{font-size:12px;font-weight:800;color:var(--muted);}
+.r-roi-val{font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:700;color:var(--lime);}
+.bar-bg{height:6px;background:rgba(255,255,255,0.06);border-radius:6px;overflow:hidden;}
+.bar-fill{height:100%;background:var(--lime);border-radius:6px;transition:width .55s cubic-bezier(.4,0,.2,1);}
+.roi-note{font-size:11px;color:var(--muted);margin-top:7px;}
+.r-pb{background:rgba(66,153,255,0.07);border:1px solid rgba(66,153,255,0.2);border-radius:18px;padding:16px 20px;display:flex;align-items:center;gap:14px;}
+.pb-ico{font-size:28px;flex-shrink:0;}
+.pb-lbl{font-size:12px;color:var(--muted);}
+.pb-val{font-family:'Arial Black',Arial,sans-serif;font-size:21px;font-weight:700;color:var(--blue);}
+.disc{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:15px 18px;font-size:12px;color:var(--muted);line-height:1.6;}
+.disc strong{color:var(--text);}
+.proj{margin-top:38px;}
+.proj h3{font-family:'Arial Black',Arial,sans-serif;font-size:15px;font-weight:700;margin-bottom:20px;}
+.proj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:580px){.proj-grid{grid-template-columns:repeat(2,1fr);}}
+.pc{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:18px 12px;text-align:center;transition:border-color .25s;}
+.pc:hover{border-color:var(--lb);}
+.pc-m{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.pc-v{font-family:'Arial Black',Arial,sans-serif;font-size:20px;font-weight:700;color:var(--lime);}
+.pc-n{font-size:11px;color:var(--muted);margin-top:5px;}
+.cta-box{background:linear-gradient(135deg,rgba(184,255,0,0.09),rgba(184,255,0,0.02));border:1.5px solid var(--lb);border-radius:26px;padding:44px 32px;text-align:center;margin-top:38px;}
+.cta-box h2{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(20px,4vw,32px);font-weight:900;line-height:1.08;margin-bottom:12px;}
+.cta-box h2 em{color:var(--lime);font-style:normal;}
+.cta-box p{font-size:15px;color:var(--muted);max-width:440px;margin:0 auto 28px;line-height:1.7;}
+.btn{display:inline-block;background:var(--lime);color:#080c14;font-family:'Arial Black',Arial,sans-serif;font-weight:700;font-size:13px;padding:17px 44px;border-radius:50px;text-decoration:none;letter-spacing:.4px;box-shadow:0 6px 30px rgba(184,255,0,0.28);transition:all .25s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 48px rgba(184,255,0,0.42);}
+.btn-note{font-size:12px;color:var(--muted);margin-top:13px;}
+
+/* ── МОБИЛЬНАЯ АДАПТАЦИЯ ── */
+@media(max-width:640px){
+  .hero{padding:44px 14px 36px;}
+  .hero h1{font-size:clamp(22px,7.5vw,36px);line-height:1.1;}
+  .hero p{font-size:12px;}
+  .from{flex-direction:column;text-align:center;padding:12px 14px;gap:6px;margin-top:22px;}
+  .from-ico{width:30px;height:30px;font-size:15px;}
+  .from-name{font-size:12px;}
+  .from-role{font-size:10px;}
+  .tag{font-size:8px;padding:5px 10px;letter-spacing:1px;}
+  .main{padding:28px 12px 56px;}
+  .sc-lbl{font-size:10px;}
+  .sc-row{gap:6px;}
+  .sc{padding:8px 12px;font-size:11px;}
+  .layout{grid-template-columns:1fr;}
+  .box{padding:20px 14px;}
+  .box h3{font-size:13px;margin-bottom:20px;}
+  .rg{margin-bottom:22px;}
+  .rg-lbl{font-size:12px;}
+  .rg-val{font-size:14px;padding:2px 8px;}
+  .rg-hint{font-size:11px;}
+  .r-main{padding:22px 16px;}
+  .r-main-lbl{font-size:10px;}
+  .r-main-val{font-size:clamp(34px,10vw,50px);}
+  .r-main-note{font-size:11px;}
+  .r-2{grid-template-columns:1fr 1fr;}
+  .rc{padding:12px 10px;}
+  .rc-lbl{font-size:9px;}
+  .rc-val{font-size:18px;}
+  .rc-sub{font-size:10px;}
+  .r-bd{padding:14px 14px;}
+  .r-bd-title{font-size:11px;}
+  .row{font-size:11px;}
+  .r-roi{padding:14px 14px;}
+  .r-roi-lbl{font-size:11px;}
+  .r-roi-val{font-size:16px;}
+  .r-pb{padding:12px 14px;gap:10px;}
+  .pb-ico{font-size:22px;}
+  .pb-lbl{font-size:11px;}
+  .pb-val{font-size:18px;}
+  .disc{font-size:11px;padding:12px 14px;}
+  .proj{margin-top:28px;}
+  .proj h3{font-size:13px;margin-bottom:14px;}
+  .proj-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .pc{padding:14px 10px;}
+  .pc-m{font-size:9px;}
+  .pc-v{font-size:16px;}
+  .pc-n{font-size:10px;}
+  .cta-box{padding:28px 14px;margin-top:28px;}
+  .cta-box h2{font-size:clamp(17px,5.5vw,24px);}
+  .cta-box p{font-size:13px;}
+  .btn{padding:14px 20px;font-size:11px;}
+  .btn-note{font-size:11px;}
+}
+
+.footer{text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);}
+.footer a{color:var(--lime);text-decoration:none;font-weight:700;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag"><span class="dot"></span>🎁 Подарок · Персональный расчёт от Юрия Гладкова</div>
+  <h1>Сколько <em>ты</em><br>заработаешь<br>с O-KEY AI?</h1>
+  <p>Двигай ползунки — смотри <strong>свои цифры</strong>. Никаких обещаний, только честная математика. Инженер Гладков умеет считать 😄</p>
+  <div class="from">
+    <div class="from-ico">⚙️</div>
+    <div>
+      <div class="from-name">Юрий Гладков</div>
+      <div class="from-role">Инженер · 33 года в найме · Партнёр O-KEY AI</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="sc-lbl">Выбери сценарий или настрой вручную</div>
+  <div class="sc-row">
+    <button class="sc on" onclick="doSc(0,this)">😌 Осторожный старт</button>
+    <button class="sc" onclick="doSc(1,this)">💪 Активный рост</button>
+    <button class="sc" onclick="doSc(2,this)">🚀 Полный газ</button>
+    <button class="sc" onclick="doSc(3,this)">🛠️ Свои цифры</button>
+  </div>
+
+  <div class="layout">
+    <div class="box">
+      <h3>Твои параметры</h3>
+      <div class="rg">
+        <div class="rg-top"><div class="rg-lbl">🤝 Партнёров в месяц</div><div class="rg-val" id="vP">3</div></div>
+        <input type="range" id="rP" min="0" max="20" value="3" oninput="upd()">
+        <div class="rg-hint">3 партнёра = бонус «быстрый старт» $150. Каждый партнёр → прямой бонус $99.5</div>
+      </div>
+      <div class="rg">
+        <div class="rg-top"><div class="rg-lbl">🛠️ ИИ-услуг продам в месяц</div><div class="rg-val" id="vS">3</div></div>
+        <input type="range" id="rS" min="0" max="25" value="3" oninput="upd()">
+        <div class="rg-hint">Карточки WB, нейро-фото, боты, контент, автоматизация</div>
+      </div>
+      <div class="rg">
+        <div class="rg-top"><div class="rg-lbl">💵 Средний чек за услугу</div><div class="rg-val" id="vC">$150</div></div>
+        <input type="range" id="rC" min="50" max="700" step="25" value="150" oninput="upd()">
+        <div class="rg-hint">Новичок: $50–150 · Средний: $200–350 · Эксперт: $400–700</div>
+      </div>
+      <div class="rg">
+        <div class="rg-top"><div class="rg-lbl">👥 Всего партнёров в команде</div><div class="rg-val" id="vT">9</div></div>
+        <input type="range" id="rT" min="0" max="100" value="9" oninput="upd()">
+        <div class="rg-hint">9 = архитект. уровень +$333 · 27 = следующий уровень +$1 000/мес</div>
+      </div>
+    </div>
+
+    <div class="results">
+      <div class="r-main">
+        <div class="r-main-lbl">Твой доход в месяц</div>
+        <div class="r-main-val" id="rTotal">$1 595</div>
+        <div class="r-main-note" id="rNote">Услуги ИИ + партнёрские бонусы</div>
+      </div>
+      <div class="r-2">
+        <div class="rc"><div class="rc-lbl">💼 Услуги ИИ</div><div class="rc-val" id="rSvc">$450</div><div class="rc-sub" id="rSvcSub">3 × $150</div></div>
+        <div class="rc"><div class="rc-lbl">🤝 Партнёрка</div><div class="rc-val" id="rPart">$1 204</div><div class="rc-sub">Бонусы + команда</div></div>
+      </div>
+      <div class="r-bd">
+        <div class="r-bd-title">📊 Из чего складывается</div>
+        <div class="row"><span class="ml">Прямые бонусы ($99.5/партнёр)</span><span class="g" id="bD">$298.5</span></div>
+        <div class="row"><span class="ml">Быстрый старт (от 3 партнёров)</span><span class="g" id="bQ">$150</span></div>
+        <div class="row"><span class="ml">% с команды (уровни 2–8)</span><span class="g" id="bT">$135</span></div>
+        <div class="row"><span class="ml">Архитектурный бонус</span><span class="g" id="bA">$333</span></div>
+        <div class="row" style="margin-top:4px;border-top:1px solid var(--border);border-bottom:none;"><span class="ml">Подписка (вычесть)</span><span class="r">−$59</span></div>
+      </div>
+      <div class="r-roi">
+        <div class="r-roi-top"><span class="r-roi-lbl">📈 ROI — возврат инвестиций</span><span class="r-roi-val" id="rROI">519%</span></div>
+        <div class="bar-bg"><div class="bar-fill" id="rBar" style="width:52%"></div></div>
+        <div class="roi-note" id="rROINote">Вложил $258 — получил $1 595 в первый месяц</div>
+      </div>
+      <div class="r-pb">
+        <div class="pb-ico">⚡</div>
+        <div><div class="pb-lbl">Окупаемость вложений</div><div class="pb-val" id="rPB">5 дней</div></div>
+      </div>
+      <div class="disc">⚠️ <strong>Честно:</strong> расчёт показывает возможный доход при активной работе. Реальный результат зависит от твоих усилий, рынка и навыков.</div>
+    </div>
+  </div>
+
+  <div class="proj">
+    <h3>📅 Прогноз роста по месяцам</h3>
+    <div class="proj-grid">
+      <div class="pc"><div class="pc-m">Месяц 1</div><div class="pc-v" id="pm1">$1 595</div><div class="pc-n">Старт и первые клиенты</div></div>
+      <div class="pc"><div class="pc-m">Месяц 3</div><div class="pc-v" id="pm3">$2 870</div><div class="pc-n">Команда и навыки растут</div></div>
+      <div class="pc"><div class="pc-m">Месяц 6</div><div class="pc-v" id="pm6">$5 100</div><div class="pc-n">Устойчивый поток</div></div>
+      <div class="pc"><div class="pc-m">Месяц 12</div><div class="pc-v" id="pm12">$9 200</div><div class="pc-n">Зрелая структура</div></div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Готов превратить<br><em>эти цифры в реальность?</em></h2>
+    <p>Юрий Гладков шёл к свободе 33 года. С O-KEY AI твой путь займёт несколько месяцев — потому что инструмент уже готов.</p>
+    <a href="https://o-key.ai/invite/acba" target="_blank" class="btn">Начать с Юрием Гладковым →</a>
+    <div class="btn-note">$199 разово · $59/мес · Обучение $3 000+ в подарок прямо сейчас</div>
+  </div>
+</div>
+
+<div class="footer">Подарок от <strong style="color:var(--text)">Юрия Гладкова</strong> · O-KEY AI · <a href="https://o-key.ai/invite/acba">o-key.ai/invite/acba</a></div>
+
+<script>
+const SC=[[3,3,150,9],[6,7,250,27],[10,12,400,50],null];
+function doSc(i,btn){document.querySelectorAll('.sc').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(SC[i]){const[p,s,c,t]=SC[i];document.getElementById('rP').value=p;document.getElementById('rS').value=s;document.getElementById('rC').value=c;document.getElementById('rT').value=t;upd();}}
+function fmt(n){if(n<0)return'−$'+Math.abs(Math.round(n)).toLocaleString('ru');if(n>=1000)return'$'+(n/1000).toFixed(1).replace('.0','')+'k';return'$'+Math.round(n).toLocaleString('ru');}
+function fill(el){const p=(el.value-el.min)/(el.max-el.min)*100;el.style.background=`linear-gradient(to right,var(--lime) ${p}%,rgba(255,255,255,0.07) ${p}%)`;}
+function upd(){
+  const p=+document.getElementById('rP').value,s=+document.getElementById('rS').value,c=+document.getElementById('rC').value,t=+document.getElementById('rT').value;
+  document.getElementById('vP').textContent=p;document.getElementById('vS').textContent=s;document.getElementById('vC').textContent='$'+c;document.getElementById('vT').textContent=t;
+  document.querySelectorAll('input[type=range]').forEach(fill);
+  const svc=s*c,dir=p*99.5,quick=p>=3?150:0,team=t*15,arch=t>=27?1000:t>=9?333:0;
+  const total=svc+dir+quick+team+arch-59,invest=258;
+  const roi=Math.round((total/invest)*100);
+  const days=total>0?Math.max(1,Math.round(invest/(total/30))):999;
+  document.getElementById('rTotal').textContent=fmt(Math.max(0,total));
+  document.getElementById('rNote').textContent=s>0&&p>0?'Услуги ИИ + партнёрские бонусы':s>0?'Только услуги ИИ':p>0?'Только партнёрка':'Двигай ползунки ☝️';
+  document.getElementById('rSvc').textContent=fmt(svc);document.getElementById('rSvcSub').textContent=s+' × $'+c;
+  document.getElementById('rPart').textContent=fmt(Math.max(0,dir+quick+team+arch-59));
+  document.getElementById('bD').textContent=dir>0?'$'+dir.toFixed(1):'—';document.getElementById('bQ').textContent=quick?'$'+quick:'—';document.getElementById('bT').textContent=team?'$'+team:'—';document.getElementById('bA').textContent=arch?'$'+arch:'—';
+  document.getElementById('rROI').textContent=roi+'%';document.getElementById('rROINote').textContent=`Вложил $${invest} — получил ${fmt(Math.max(0,total))} в первый месяц`;
+  document.getElementById('rBar').style.width=Math.min(Math.max(roi/20,1),100)+'%';
+  document.getElementById('rPB').textContent=days<=30?days+' дн.':Math.round(days/30)+' мес.';
+  const m1=Math.max(0,total);document.getElementById('pm1').textContent=fmt(m1);document.getElementById('pm3').textContent=fmt(Math.round(m1*1.8));document.getElementById('pm6').textContent=fmt(Math.round(m1*3.2));document.getElementById('pm12').textContent=fmt(Math.round(m1*5.8));
+}
+document.querySelectorAll('input[type=range]').forEach(el=>{fill(el);el.addEventListener('input',()=>fill(el));});upd();
+</script>
+</body>
+</html>

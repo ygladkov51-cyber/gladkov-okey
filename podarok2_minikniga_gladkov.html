@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Как я шёл 33 года к свободе — Юрий Гладков</title>
+
+<style>
+:root{
+  --lime:#b8ff00;--dark:#0c0e1a;--surface:#131827;--surface2:#1a2035;
+  --border:rgba(255,255,255,0.07);--text:#e2eaff;--muted:#717fa3;
+  --gold:#e8b84b;--warm:#f5e6c8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:Georgia,'Times New Roman',serif;background:var(--dark);color:var(--text);line-height:1.85;overflow-x:hidden;}
+
+/* noise */
+body::after{content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");opacity:.55;}
+
+/* ── COVER ── */
+.cover{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px 24px;position:relative;overflow:hidden;
+  background:linear-gradient(165deg,#0c0e1a 0%,#16203a 45%,#0c0e1a 100%);
+}
+.cover::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);
+  width:800px;height:700px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(232,184,75,0.07) 0%,transparent 65%);}
+.cover::after{content:'';position:absolute;bottom:-100px;right:-80px;
+  width:450px;height:400px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(184,255,0,0.05) 0%,transparent 65%);}
+
+.cover-ico{font-size:52px;margin-bottom:28px;position:relative;z-index:1;
+  animation:fadeUp .6s ease both;}
+.cover-eyebrow{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);
+  margin-bottom:22px;position:relative;z-index:1;animation:fadeUp .65s .08s ease both;}
+.cover-title{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(28px,6.5vw,68px);
+  font-weight:900;line-height:1.04;position:relative;z-index:1;
+  animation:fadeUp .7s .15s ease both;}
+.cover-title em{color:var(--lime);font-style:normal;display:block;}
+.cover-line{width:56px;height:3px;background:var(--gold);border-radius:2px;
+  margin:28px auto;position:relative;z-index:1;animation:fadeUp .7s .22s ease both;}
+.cover-author{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:19px;font-weight:800;
+  color:var(--warm);position:relative;z-index:1;animation:fadeUp .7s .28s ease both;}
+.cover-role{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;color:var(--muted);
+  margin-top:6px;position:relative;z-index:1;animation:fadeUp .7s .33s ease both;}
+.cover-hint{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:12px;color:var(--muted);
+  margin-top:52px;letter-spacing:1px;text-transform:uppercase;
+  position:relative;z-index:1;animation:bounce 2.2s infinite;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── BOOK BODY ── */
+.book{max-width:740px;margin:0 auto;padding:0 24px 80px;}
+
+/* chapter */
+.chapter{padding:80px 0 0;}
+.ch-eyebrow{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.ch-title{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(22px,4.5vw,38px);
+  font-weight:900;line-height:1.08;margin-bottom:36px;}
+.ch-title em{color:var(--lime);font-style:normal;}
+
+.prose{font-size:clamp(15px,2.3vw,17px);color:var(--text);line-height:1.9;margin-bottom:22px;}
+.prose strong{color:var(--warm);font-weight:600;}
+
+/* pull quote */
+.pq{margin:44px 0;padding:28px 36px;
+  border-left:4px solid var(--gold);
+  background:linear-gradient(90deg,rgba(232,184,75,0.06),transparent 80%);
+  border-radius:0 18px 18px 0;}
+.pq p{font-size:clamp(17px,3vw,22px);color:var(--warm);line-height:1.65;font-style:italic;}
+.pq cite{display:block;margin-top:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:12px;font-weight:800;color:var(--gold);font-style:normal;
+  letter-spacing:1.5px;text-transform:uppercase;}
+
+/* number row */
+.nrow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0;}
+.ncard{background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;padding:22px 14px;text-align:center;}
+.nbig{font-family:'Arial Black',Arial,sans-serif;font-size:30px;font-weight:900;line-height:1;}
+.nsub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:12px;color:var(--muted);margin-top:7px;}
+
+/* highlight */
+.hbox{background:rgba(184,255,0,0.06);border:1px solid rgba(184,255,0,0.15);
+  border-radius:20px;padding:28px 32px;margin:32px 0;}
+.hbox p{font-size:clamp(15px,2.3vw,17px);color:var(--text);line-height:1.75;}
+.hbox strong{color:var(--lime);}
+
+/* divider */
+.div{text-align:center;margin:68px 0 0;color:var(--gold);letter-spacing:14px;font-size:14px;}
+
+/* lessons */
+.lessons{background:var(--surface);border:1px solid var(--border);
+  border-radius:24px;padding:36px 32px;margin:56px 0 0;}
+.lessons-title{font-family:'Arial Black',Arial,sans-serif;font-size:19px;font-weight:900;
+  color:var(--lime);margin-bottom:28px;}
+.lesson{display:flex;gap:18px;align-items:flex-start;margin-bottom:24px;}
+.lnum{width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:rgba(184,255,0,0.08);border:1.5px solid rgba(184,255,0,0.22);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Arial Black',Arial,sans-serif;font-size:13px;font-weight:700;color:var(--lime);}
+.ltext strong{display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:15px;
+  font-weight:800;color:var(--text);margin-bottom:5px;}
+.ltext p{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* CTA */
+.cta{background:linear-gradient(135deg,rgba(184,255,0,0.09),rgba(184,255,0,0.02));
+  border:1.5px solid rgba(184,255,0,0.25);border-radius:26px;
+  padding:52px 36px;text-align:center;margin-top:56px;}
+.cta h2{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(22px,4.5vw,38px);
+  font-weight:900;line-height:1.08;margin-bottom:16px;}
+.cta h2 em{color:var(--lime);font-style:normal;}
+.cta p{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--muted);
+  max-width:480px;margin:0 auto 34px;line-height:1.7;}
+.btn{display:inline-block;background:var(--lime);color:#080c14;
+  font-family:'Arial Black',Arial,sans-serif;font-weight:700;font-size:13px;
+  padding:17px 46px;border-radius:50px;text-decoration:none;letter-spacing:.4px;
+  box-shadow:0 6px 32px rgba(184,255,0,0.28);transition:all .25s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 48px rgba(184,255,0,0.42);}
+.cta-note{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:12px;color:var(--muted);margin-top:14px;}
+
+.footer{text-align:center;padding:32px 20px 64px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;color:var(--muted);}
+.footer a{color:var(--lime);text-decoration:none;font-weight:700;}
+
+
+/* ── МОБИЛЬНАЯ АДАПТАЦИЯ ── */
+@media(max-width:600px){
+  .cover{padding:56px 14px 48px;}
+  .cover-title{font-size:clamp(24px,8vw,38px);line-height:1.1;}
+  .cover-ico{font-size:38px;margin-bottom:18px;}
+  .cover-author{font-size:16px;}
+  .cover-role{font-size:11px;}
+  .book{padding:0 14px 56px;}
+  .chapter{padding:52px 0 0;}
+  .ch-title{font-size:clamp(18px,6vw,28px);margin-bottom:24px;}
+  .prose{font-size:14px;margin-bottom:18px;}
+  .pq{padding:18px 16px;margin:28px 0;}
+  .pq p{font-size:clamp(14px,4.5vw,18px);}
+  .nrow{grid-template-columns:1fr;}
+  .ncard{padding:16px 12px;}
+  .nbig{font-size:24px;}
+  .hbox{padding:18px 14px;margin:24px 0;}
+  .hbox p{font-size:14px;}
+  .lessons{padding:22px 16px;margin:40px 0 0;}
+  .lessons-title{font-size:16px;margin-bottom:20px;}
+  .lesson{gap:10px;margin-bottom:20px;}
+  .lnum{width:30px;height:30px;font-size:11px;flex-shrink:0;}
+  .ltext strong{font-size:14px;}
+  .ltext p{font-size:12px;}
+  .cta{padding:28px 16px;margin-top:40px;}
+  .cta h2{font-size:clamp(18px,6vw,28px);}
+  .cta p{font-size:13px;}
+  .btn{padding:14px 24px;font-size:11px;}
+  .div{margin:48px 0 0;}
+}
+
+@media(max-width:460px){.nrow{grid-template-columns:1fr 1fr;}.ncard:last-child{grid-column:1/-1;}}
+
+/* scroll reveal */
+.sr{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease;}
+.sr.v{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ══════ ОБЛОЖКА ══════ -->
+<div class="cover">
+  <div class="cover-ico">🌲</div>
+  <div class="cover-eyebrow">Личная история · O-KEY AI</div>
+  <h1 class="cover-title">Как я шёл<br><em>33 года к свободе</em></h1>
+  <div class="cover-line"></div>
+  <div class="cover-author">Юрий Гладков</div>
+  <div class="cover-role">Инженер-механик · 33 года в найме · Партнёр O-KEY AI</div>
+  <div class="cover-hint">↓ листай вниз</div>
+</div>
+
+<div class="book">
+
+<!-- ══════ ГЛАВА 1 ══════ -->
+<div class="chapter sr">
+  <div class="ch-eyebrow">Глава первая</div>
+  <h2 class="ch-title">Сибирская деревня,<br>диплом инженера и<br><em>1 000 рублей несправедливости</em></h2>
+
+  <p class="prose">Я родился там, где небо огромное, воздух пахнет хвоей и смолой, а по утрам слышно как гудит первый трактор за деревней. <strong>Сибирь.</strong> Место где, кажется, сама природа учит тебя быть настоящим.</p>
+
+  <p class="prose">После школы поступил в НГАУ — Новосибирский государственный аграрный университет. Учился на инженера-механика. Серьёзная профессия — из тех, где всё настоящее: металл, чертежи, законы физики, которые не обманешь.</p>
+
+  <p class="prose">Получил диплом. С гордостью вернулся домой. Устроился работать по специальности. Родные края, любимое дело, натуральная еда, чистый воздух. <strong>Живи и радуйся.</strong> Казалось — что ещё нужно человеку?</p>
+
+  <p class="prose">А потом жизнь задала мне один простой вопрос. И этот вопрос перевернул всё что я думал о справедливости, труде и деньгах.</p>
+
+  <div class="pq">
+    <p>«Юрий, а ты знаешь сколько получают твои друзья в городе?»</p>
+  </div>
+
+  <p class="prose">Шёл <strong>1991 год</strong>. Я — инженер с высшим образованием, специалист, человек с дипломом. Зарплата: <strong>1 000 рублей.</strong></p>
+  <p class="prose">Мой друг в Кемерово — слесарь, без высшего образования. Зарплата: <strong>18 000 рублей.</strong></p>
+  <p class="prose">Второй друг — тоже слесарь. Зарплата: <strong>25 000 рублей.</strong></p>
+
+  <div class="nrow">
+    <div class="ncard"><div class="nbig" style="color:#ff6060;">₽1К</div><div class="nsub">Я — инженер с дипломом</div></div>
+    <div class="ncard"><div class="nbig" style="color:var(--gold);">₽18К</div><div class="nsub">Друг-слесарь №1</div></div>
+    <div class="ncard"><div class="nbig" style="color:var(--lime);">₽25К</div><div class="nsub">Друг-слесарь №2</div></div>
+  </div>
+
+  <p class="prose">Я остановился и почувствовал что-то тяжёлое внутри. Не злость. Не зависть. Что-то более точное и горькое.</p>
+  <p class="prose"><strong>Несправедливость.</strong> Живая. С цифрами. Которую не объяснить логикой.</p>
+  <p class="prose">Друзья могли себе позволить многое. Я — от слова совсем <strong>ничего</strong>.</p>
+</div>
+
+<div class="div sr">✦ ✦ ✦</div>
+
+<!-- ══════ ГЛАВА 2 ══════ -->
+<div class="chapter sr">
+  <div class="ch-eyebrow">Глава вторая</div>
+  <h2 class="ch-title">Диплом в ящик стола.<br><em>Слесарь с высшим образованием</em><br>едет покорять город.</h2>
+
+  <p class="prose">Я принял решение быстро. Без долгих раздумий, без страха и сомнений. <strong>Так устроен сибирский характер</strong> — либо делаешь, либо молчишь.</p>
+
+  <p class="prose">Диплом — в ящик стола. Родная деревня — за плечами. Кемерово — впереди. Должность: слесарь. Без надбавок за образование, без привилегий, без знакомств. Просто с нуля — руки, голова, характер.</p>
+
+  <div class="pq">
+    <p>Правила игры можно либо принять и терпеть — либо изменить и идти вперёд. Я выбрал второе. И ни разу об этом не пожалел.</p>
+    <cite>Юрий Гладков</cite>
+  </div>
+
+  <p class="prose">Началась долгая дорога. <strong>33,5 года на одном предприятии.</strong> От слесаря — до начальника цеха. Шаг за шагом. Без блата, без связей, без «нужных» людей. Только труд, смекалка и инженерная голова которая умеет решать задачи.</p>
+
+  <p class="prose">Жизнь шла быстро. В работе, в суете, в маленьких победах и больших ответственностях. Стабильность. Уважение коллег. Должность. <strong>Всё что нужно — есть.</strong></p>
+
+  <p class="prose">Но однажды — в один совершенно обычный вечер, не особенный, без повода — я поймал себя на тихом и очень неудобном вопросе:</p>
+
+  <div class="pq">
+    <p>«А когда же я поживу для СЕБЯ? Порыбачу в тишине. Съезжу с семьёй на море. Займусь тем что по-настоящему люблю — а не тем что требует работа?»</p>
+  </div>
+
+  <p class="prose">Ответ был один. Его давали все вокруг, охотно и уверенно, как будто это была великая мудрость:</p>
+  <p class="prose"><strong>«Вот выйдешь на пенсию — тогда и успеешь. Тогда будет время на всё.»</strong></p>
+  <p class="prose">И именно тут появился второй вопрос — тихий, но гораздо более страшный.</p>
+</div>
+
+<div class="div sr">✦ ✦ ✦</div>
+
+<!-- ══════ ГЛАВА 3 ══════ -->
+<div class="chapter sr">
+  <div class="ch-eyebrow">Глава третья</div>
+  <h2 class="ch-title">Страх который<br><em>не давал спать по ночам</em></h2>
+
+  <p class="prose">Пенсия. Я видел как живут на неё мои родители. Как они <strong>считают копейки</strong> от выплаты до выплаты — буквально, в блокноте. Как отказывают себе в самом простом. Как слово «хочу» давно заменилось словом «нельзя».</p>
+
+  <p class="prose">Это была не абстрактная бедность из новостей. Это были <strong>конкретные, близкие мне люди</strong> которые всю жизнь честно работали — и получили в финале то что называют словом «пенсия». А по-настоящему это называлось иначе.</p>
+
+  <div class="hbox">
+    <p><strong>Пенсия — это не свобода и не заслуженный отдых.</strong> Пенсия — это тихое нищенское существование к которому тебя готовили 40 лет пока ты работал на чужие цели и чужие мечты.</p>
+  </div>
+
+  <p class="prose">Этот страх оказался <strong>сильнее усталости</strong>. Сильнее привычки к стабильности. Сильнее голосов вокруг которые говорили «ну ты же уже столько лет здесь, зачем что-то менять».</p>
+
+  <p class="prose">И я начал искать. Долго. Без гарантий и без карты. Много раз падал — терял деньги, ошибался, наступал на грабли которые, казалось, специально кто-то расставил. Снова поднимался. Изучал рынки, компании, куда можно инвестировать, где можно получить настоящий доход — не подачку государства, а реальный результат своих решений.</p>
+
+  <div class="pq">
+    <p>«Ищущий всегда найдёт то что ищет. Главное в этом — не останавливаться. Тогда ты в скором времени приобретёшь то за чем шёл.»</p>
+    <cite>Из личного опыта Юрия Гладкова</cite>
+  </div>
+
+  <p class="prose">Я не останавливался. И однажды — нашёл.</p>
+</div>
+
+<div class="div sr">✦ ✦ ✦</div>
+
+<!-- ══════ ГЛАВА 4 ══════ -->
+<div class="chapter sr">
+  <div class="ch-eyebrow">Глава четвёртая</div>
+  <h2 class="ch-title">Инструмент который<br><em>работает пока ты рыбачишь</em></h2>
+
+  <p class="prose">Я нашёл. Не сразу, не легко — но нашёл.</p>
+  <p class="prose">Искусственный интеллект. Платформа <strong>O-KEY AI.</strong></p>
+
+  <p class="prose">Звучит как фантастика? Я сам так думал поначалу. Инженер-механик, человек железа и чертежей. Для меня всегда существовало только то, что можно потрогать, разобрать на части и собрать обратно. Что работает по законам физики, а не по каким-то «алгоритмам».</p>
+
+  <p class="prose">Но потом я увидел одну вещь — и моё недоверие рухнуло как старый забор под сибирским апрельским снегом.</p>
+
+  <p class="prose">Человек показал как работает нейропродавец — ИИ-помощник который сам ведёт переписку с клиентами. Пока хозяин занимался своими делами — система отвечала на вопросы, квалифицировала лидов, записывала людей. Без участия человека. Без перерывов на обед.</p>
+
+  <div class="pq">
+    <p>«Вот оно. Не ещё один курс. Не очередная мотивационная речь. А инструмент — такой же надёжный как хороший станок на заводе. Настроил один раз — работает без тебя.»</p>
+    <cite>Юрий Гладков · первое впечатление от O-KEY AI</cite>
+  </div>
+
+  <p class="prose"><strong>Инженер во мне сказал: это механизм который стоит изучить.</strong> И не ошибся.</p>
+
+  <p class="prose">Внутри платформы — бесплатное обучение по ИИ стоимостью $3 000+. Инструменты для автоматизации любого бизнеса. Партнёрская программа с 12 источниками дохода. Живое сообщество людей которые идут тем же путём. Наставники, конференции, NEW LEVEL CAMP.</p>
+
+  <p class="prose">И главное — <strong>план который работает пока я рыбачу</strong>. Пока сижу с удочкой на рассвете у сибирской реки. Пока везу семью на море. Пока занимаюсь тем что по-настоящему люблю — а не тем что требует чужой график.</p>
+
+  <p class="prose">Страх нищей пенсии который не давал мне спать — стал двигателем. Он привёл меня сюда. И теперь у меня есть не просто надежда, а <strong>конкретный работающий механизм</strong>.</p>
+</div>
+
+<div class="div sr">✦ ✦ ✦</div>
+
+<!-- ══════ 5 УРОКОВ ══════ -->
+<div class="lessons sr">
+  <div class="lessons-title">5 уроков которые я вынес из 33 лет пути</div>
+
+  <div class="lesson">
+    <div class="lnum">1</div>
+    <div class="ltext">
+      <strong>Несправедливость — это не приговор, это сигнал к действию</strong>
+      <p>Когда что-то несправедливо — это не знак жаловаться. Это знак что правила надо менять. Не роптать, а искать другой путь.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">2</div>
+    <div class="ltext">
+      <strong>Страх — лучший мотиватор если направить его в правильную сторону</strong>
+      <p>Страх нищей пенсии мог меня парализовать. Вместо этого он заставил меня искать. Тот же страх — два разных выбора. Два разных финала.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">3</div>
+    <div class="ltext">
+      <strong>Падать не страшно — страшно не вставать</strong>
+      <p>Я терял деньги, ошибался, начинал заново. Каждое падение давало знание которое невозможно купить на курсах. Ошибки — это плата за опыт.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">4</div>
+    <div class="ltext">
+      <strong>Хороший инструмент работает для всех кто берёт его в руки</strong>
+      <p>Не важно — инженер ты, мама в декрете, сетевик или студент. Важно взять инструмент в руки и начать. Инструмент не спрашивает откуда ты.</p>
+    </div>
+  </div>
+
+  <div class="lesson">
+    <div class="lnum">5</div>
+    <div class="ltext">
+      <strong>Ищущий всегда найдёт — если не останавливается</strong>
+      <p>Это не красивая фраза. Это закон который я проверил на своей жизни. 33 года — долгий путь. Но он привёл туда куда нужно.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CTA ══════ -->
+<div class="cta sr">
+  <h2>Готов написать<br><em>свою историю?</em></h2>
+  <p>Юрий Гладков искал свободу 33 года. С O-KEY AI этот путь займёт у тебя несколько месяцев — потому что инструмент уже готов. Осталось только взять его в руки.</p>
+  <a href="https://o-key.ai/invite/acba" target="_blank" class="btn">Начать с Юрием Гладковым →</a>
+  <div class="cta-note">o-key.ai/invite/acba</div>
+</div>
+
+</div><!-- /book -->
+
+<div class="footer">
+  © Юрий Гладков · O-KEY AI ·
+  <a href="https://o-key.ai/invite/acba" target="_blank">https://o-key.ai/invite/acba</a>
+</div>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); });
+},{threshold:0.08});
+document.querySelectorAll('.sr').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

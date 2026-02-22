@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>50 профессиональных промптов — Подарок от Юрия Гладкова</title>
+
+<style>
+:root{
+  --lime:#b8ff00;--lime-soft:rgba(184,255,0,0.1);--lime-border:rgba(184,255,0,0.22);
+  --dark:#080c14;--surface:#0f1424;--surface2:#161d30;--surface3:#1c2540;
+  --border:rgba(255,255,255,0.07);--text:#dde6ff;--muted:#6d7a9e;
+  --orange:#ff8800;--blue:#4299ff;--teal:#00d4aa;--pink:#f04e8e;--gold:#e8b84b;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden;}
+
+/* ── NOISE OVERLAY ── */
+body::after{content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity:.6;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:100px 20px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;top:-120px;left:50%;transform:translateX(-50%);
+  width:900px;height:600px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(184,255,0,0.07) 0%,transparent 65%);
+}
+.hero-glow2{
+  position:absolute;bottom:-80px;right:-100px;width:500px;height:400px;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(74,153,255,0.05) 0%,transparent 65%);
+}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--lime-border);background:var(--lime-soft);
+  color:var(--lime);font-size:11px;font-weight:800;letter-spacing:2.5px;
+  text-transform:uppercase;padding:7px 20px;border-radius:40px;
+  margin-bottom:28px;position:relative;z-index:1;
+  animation:fadeUp .6s ease both;
+}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 1.6s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+
+.hero h1{
+  font-family:'Arial Black',Arial,sans-serif;font-size:clamp(30px,6.5vw,70px);
+  font-weight:900;line-height:1.04;position:relative;z-index:1;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero h1 em{color:var(--lime);font-style:normal;}
+.hero-sub{
+  font-size:clamp(14px,2.2vw,17px);color:var(--muted);max-width:580px;
+  margin:20px auto 0;line-height:1.7;position:relative;z-index:1;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-sub strong{color:var(--text);}
+
+.hero-author{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:50px;padding:12px 24px;margin-top:36px;
+  position:relative;z-index:1;animation:fadeUp .7s .3s ease both;
+}
+.author-ico{
+  width:36px;height:36px;border-radius:50%;background:var(--lime);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.author-info{text-align:left;}
+.author-name{font-size:14px;font-weight:800;color:var(--text);}
+.author-role{font-size:11px;color:var(--muted);}
+
+.scroll-cue{
+  margin-top:52px;font-size:12px;color:var(--muted);letter-spacing:1px;
+  text-transform:uppercase;position:relative;z-index:1;
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HOW TO USE ── */
+.howto{
+  max-width:900px;margin:0 auto;padding:60px 20px 0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;
+}
+.ht-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:22px 24px;
+}
+.ht-num{
+  font-family:'Arial Black',Arial,sans-serif;font-size:32px;font-weight:900;
+  color:var(--lime-soft);border:none;line-height:1;margin-bottom:10px;
+  -webkit-text-stroke:1px rgba(184,255,0,0.3);color:transparent;
+}
+.ht-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.ht-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+
+/* ── SECTION ── */
+.section{max-width:900px;margin:0 auto;padding:64px 20px 0;}
+.sec-header{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:28px;padding-bottom:18px;
+  border-bottom:1px solid var(--border);
+}
+.sec-ico{
+  width:48px;height:48px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
+}
+.sec-info{}
+.sec-title{font-family:'Arial Black',Arial,sans-serif;font-size:17px;font-weight:700;}
+.sec-desc{font-size:12px;color:var(--muted);margin-top:3px;}
+.sec-nums{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;}
+
+/* category colour tokens */
+.c-lime{--cc:var(--lime);}
+.c-orange{--cc:var(--orange);}
+.c-blue{--cc:var(--blue);}
+.c-teal{--cc:var(--teal);}
+.c-pink{--cc:var(--pink);}
+
+.c-lime .sec-ico{background:rgba(184,255,0,0.1);}
+.c-orange .sec-ico{background:rgba(255,136,0,0.1);}
+.c-blue .sec-ico{background:rgba(74,153,255,0.1);}
+.c-teal .sec-ico{background:rgba(0,212,170,0.1);}
+.c-pink .sec-ico{background:rgba(240,78,142,0.1);}
+
+.c-lime .sec-title{color:var(--lime);}
+.c-orange .sec-title{color:var(--orange);}
+.c-blue .sec-title{color:var(--blue);}
+.c-teal .sec-title{color:var(--teal);}
+.c-pink .sec-title{color:var(--pink);}
+
+.c-lime .sec-nums{color:var(--lime);}
+.c-orange .sec-nums{color:var(--orange);}
+.c-blue .sec-nums{color:var(--blue);}
+.c-teal .sec-nums{color:var(--teal);}
+.c-pink .sec-nums{color:var(--pink);}
+
+/* ── PROMPT GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+
+.pc{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:20px;padding:22px 20px 18px;position:relative;overflow:hidden;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.pc:hover{
+  border-color:var(--cc);transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+.pc::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--cc);opacity:0;transition:opacity .25s;
+  border-radius:20px 20px 0 0;
+}
+.pc:hover::after{opacity:1;}
+
+.pc-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.pc-tag{
+  font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--cc);background:rgba(255,255,255,0.06);
+  padding:3px 10px;border-radius:20px;
+}
+.pc-num{font-size:10px;font-weight:800;color:var(--muted);margin-left:auto;}
+
+.pc-what{
+  font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+/* Prompt text — professional, rich */
+.pc-prompt{
+  font-size:13px;color:var(--text);line-height:1.65;margin-bottom:12px;
+  font-style:italic;
+  border-left:2px solid var(--cc);padding-left:12px;opacity:.9;
+}
+.pc-example{
+  font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px;
+  background:rgba(255,255,255,0.03);border-radius:10px;padding:10px 12px;
+}
+.pc-example strong{color:var(--text);font-style:normal;}
+.pc-why{font-size:11px;color:var(--cc);font-weight:700;margin-bottom:14px;}
+
+.pc-copy{
+  width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  color:var(--muted);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:12px;font-weight:800;
+  padding:9px;border-radius:12px;cursor:pointer;transition:all .2s;
+  letter-spacing:.5px;
+}
+.pc-copy:hover{background:var(--lime-soft);border-color:var(--lime-border);color:var(--lime);}
+.pc-copy.ok{background:rgba(184,255,0,0.15);border-color:var(--lime-border);color:var(--lime);}
+
+/* ── FOOTER ── */
+.footer-section{
+  max-width:900px;margin:64px auto 0;padding:0 20px 80px;
+}
+.footer-cta{
+  background:linear-gradient(135deg,rgba(184,255,0,0.09),rgba(184,255,0,0.03));
+  border:1.5px solid var(--lime-border);border-radius:28px;
+  padding:48px 36px;text-align:center;
+}
+.footer-cta h2{
+  font-family:'Arial Black',Arial,sans-serif;font-size:clamp(22px,4vw,38px);
+  font-weight:900;line-height:1.1;margin-bottom:14px;
+}
+.footer-cta h2 em{color:var(--lime);font-style:normal;}
+.footer-cta p{font-size:15px;color:var(--muted);max-width:460px;margin:0 auto 32px;line-height:1.7;}
+.cta-btn{
+  display:inline-block;background:var(--lime);color:var(--dark);
+  font-family:'Arial Black',Arial,sans-serif;font-weight:900;font-size:14px;
+  padding:17px 44px;border-radius:50px;text-decoration:none;
+  box-shadow:0 6px 30px rgba(184,255,0,0.28);transition:all .25s;letter-spacing:.5px;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(184,255,0,0.42);}
+.cta-note{font-size:12px;color:var(--muted);margin-top:14px;}
+
+
+/* ── МОБИЛЬНАЯ АДАПТАЦИЯ ── */
+@media(max-width:600px){
+  .hero{padding:64px 14px 52px;}
+  .hero h1{font-size:clamp(24px,7.5vw,38px);line-height:1.12;}
+  .hero-sub{font-size:13px;margin:14px auto 0;}
+  .hero-author{flex-direction:column;text-align:center;padding:12px 16px;gap:8px;margin-top:24px;}
+  .author-info{text-align:center;}
+  .badge{font-size:9px;padding:5px 12px;letter-spacing:1px;}
+  .scroll-cue{margin-top:32px;}
+  .howto{grid-template-columns:1fr;padding:32px 14px 0;gap:10px;}
+  .ht-card{padding:16px;}
+  .ht-num{font-size:24px;}
+  .section{padding:40px 14px 0;}
+  .sec-header{flex-wrap:wrap;gap:8px;}
+  .sec-nums{margin-left:0;width:100%;font-size:10px;}
+  .sec-ico{width:40px;height:40px;font-size:20px;}
+  .sec-title{font-size:14px;}
+  .pgrid{grid-template-columns:1fr;}
+  .pc{padding:16px 14px 14px;}
+  .pc-prompt{font-size:12px;}
+  .pc-example{font-size:11px;}
+  .footer-section{padding:0 14px 52px;margin-top:40px;}
+  .footer-cta{padding:28px 16px;}
+  .footer-cta h2{font-size:clamp(18px,5.5vw,26px);}
+  .cta-btn{padding:14px 22px;font-size:11px;}
+  .cta-note{font-size:11px;}
+}
+@media(min-width:601px) and (max-width:900px){
+  .pgrid{grid-template-columns:repeat(2,1fr);}
+  .howto{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ── SCROLL OBSERVER ── */
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="badge"><span class="badge-dot"></span>Подарок от Юрия Гладкова · Бесплатно</div>
+
+  <h1>50 профессиональных<br>промптов для<br><em>заработка с ИИ</em></h1>
+
+  <p class="hero-sub">
+    Не сухие шаблоны — а <strong>живые, протестированные запросы</strong> с примерами, эмоциями и объяснением зачем они работают.
+    Написаны как мастером промптинга, проверены на практике.
+  </p>
+
+  <div class="hero-author">
+    <div class="author-ico">⚙️</div>
+    <div class="author-info">
+      <div class="author-name">Юрий Гладков</div>
+      <div class="author-role">O-KEY AI · Партнёр · Инженер с 33-летним опытом</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">↓ &nbsp; листай вниз</div>
+</section>
+
+<!-- ══════════════ КАК ИСПОЛЬЗОВАТЬ ══════════════ -->
+<div class="howto fade-in">
+  <div class="ht-card">
+    <div class="ht-num">01</div>
+    <div class="ht-title">Найди нужный промпт</div>
+    <div class="ht-desc">5 категорий под разные задачи — контент, продажи, бизнес, маркетплейсы, жизнь. Выбери то что нужно прямо сейчас.</div>
+  </div>
+  <div class="ht-card">
+    <div class="ht-num">02</div>
+    <div class="ht-title">Нажми «Скопировать»</div>
+    <div class="ht-desc">Промпт копируется целиком. Замени данные в квадратных скобках [вот так] на свои — это займёт 30 секунд.</div>
+  </div>
+  <div class="ht-card">
+    <div class="ht-num">03</div>
+    <div class="ht-title">Вставь в O-KEY AI</div>
+    <div class="ht-desc">Отправь запрос в ИИ-ассистент и получи профессиональный результат. Никакого опыта программирования не нужно.</div>
+  </div>
+  <div class="ht-card">
+    <div class="ht-num">04</div>
+    <div class="ht-title">Зарабатывай</div>
+    <div class="ht-desc">Используй результат в работе, продавай как услугу клиентам или применяй для роста своего дела.</div>
+  </div>
+</div>
+
+<!-- ══════════════ КАТЕГОРИЯ 1: КОНТЕНТ ══════════════ -->
+<div class="section c-lime fade-in">
+  <div class="sec-header">
+    <div class="sec-ico">✍️</div>
+    <div class="sec-info">
+      <div class="sec-title">Контент и соцсети</div>
+      <div class="sec-desc">Посты, заголовки, сценарии — всё что нужно чтобы тебя читали и к тебе шли</div>
+    </div>
+    <div class="sec-nums">Промпты №1–10</div>
+  </div>
+  <div class="pgrid">
+
+    <!-- 1 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Продающий пост</span><span class="pc-num">#01</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты — опытный копирайтер с психологическим образованием. Напиши продающий пост для ВКонтакте о [продукт/услуга]. Аудитория: [описание — возраст, боли, желания]. Начни с острой боли в первом предложении. Используй структуру: крюк → боль → история → решение → призыв. Тон: живой, как разговор с другом за кофе. Длина: 180–220 слов. Без канцелярита и без слова "уникальный".»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «Настройка ИИ-бота для малого бизнеса», [аудитория] = «Владельцы кафе и салонов, 30–50 лет, устали отвечать на одни и те же вопросы в WhatsApp»</div>
+      <div class="pc-why">⚡ Почему работает: структура «боль-история-решение» — самая конверсионная в соцсетях. Тон «разговор с другом» снижает защитную реакцию читателя.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 2 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Цепляющие заголовки</span><span class="pc-num">#02</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Представь что ты главред вирусного Telegram-канала с 500 000 подписчиков. Придумай 10 заголовков для поста на тему [тема]. Для каждого используй разный триггер: любопытство, страх упустить, выгода, провокация, инсайт. Заголовки должны обрываться на интересном месте — так чтобы невозможно было не нажать. Без кликбейта ради кликбейта — только честный крючок.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [тема] = «Как ИИ делает карточки товаров для Wildberries за 3 минуты» → получишь 10 разных вариантов заголовка для одной и той же темы</div>
+      <div class="pc-why">⚡ Почему работает: один и тот же контент с разными заголовками даёт разницу в охвате в 3–5 раз. Тест заголовков — первое что делают профи.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 3 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">История до/после</span><span class="pc-num">#03</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты мастер сторителлинга. Напиши трансформационную историю в формате "до и после" для [ниша]. Герой: [краткое описание — кто, какая боль, что мешало]. Решение: [что изменило ситуацию]. Покажи эмоции: растерянность в начале, сомнения в середине, облегчение и гордость в конце. Заверши конкретным результатом в цифрах. Длина: 200–250 слов. Последнее предложение — мягкий призыв к читателю узнать себя в этой истории.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [ниша] = «онлайн-заработок», [герой] = «мама в декрете, которая не верила что может зарабатывать без офиса»</div>
+      <div class="pc-why">⚡ Почему работает: мозг воспринимает историю как собственный опыт. Читатель примеряет её на себя — и уже наполовину убеждён.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 4 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Контент-план</span><span class="pc-num">#04</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты контент-стратег с опытом в нише [ниша]. Составь контент-план на 14 дней для эксперта который только начинает вести канал и хочет прогреть аудиторию перед продажей [продукт]. Чередуй типы постов: личная история, обучающий инсайт, кейс клиента, работа с возражением, развлекательный, продающий. Для каждого дня: тип поста + тема + ключевая эмоция которую он вызывает + призыв к действию.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [ниша] = «ИИ-услуги для бизнеса», [продукт] = «настройка нейропродавца для Telegram»</div>
+      <div class="pc-why">⚡ Почему работает: системный контент строит доверие в 4 раза быстрее хаотичных постов. Чередование типов не даёт аудитории «замылить взгляд».</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 5 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Редактура текста</span><span class="pc-num">#05</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты редактор с чутьём Ильяхова. Возьми мой текст и сделай с ним следующее: 1) убери все канцеляризмы и "водяные" слова, 2) укороти предложения — каждое должно дышать, 3) добавь живые глаголы вместо существительных, 4) первое предложение сделай таким чтобы невозможно было не читать дальше. Вот мой текст: [вставь текст]. Покажи результат и отдельно — список что именно ты изменил и почему.»</div>
+      <div class="pc-example"><strong>Пример:</strong> Вставь черновик поста или письма — получишь профессиональную редактуру с объяснением каждого правки. Учишься прямо в процессе.</div>
+      <div class="pc-why">⚡ Почему работает: объяснение правок — это обучение. После 5–7 таких итераций ты начинаешь писать сразу чище. ИИ становится личным редактором.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 6 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Скрипт видео</span><span class="pc-num">#06</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты сценарист коротких видео для ВКонтакте и YouTube Shorts. Напиши скрипт на тему [тема]. Длина: 45–60 секунд. Структура жёсткая: первые 3 секунды — провокационный вопрос или неожиданное заявление; затем — 3 инсайта по 10 секунд каждый; финал — один сильный вывод + призыв. Тон: живой, быстрый, уверенный. Добавь ремарки [пауза], [акцент], [смотреть в камеру] для правильной подачи.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [тема] = «Почему умные люди продолжают работать в найме и что с этим делать»</div>
+      <div class="pc-why">⚡ Почему работает: ремарки превращают скрипт в режиссёрский сценарий. Ты не просто читаешь текст — ты знаешь когда остановиться и куда смотреть.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 7 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Вирусный пост-список</span><span class="pc-num">#07</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты автор который умеет делать списки которые сохраняют и репостят. Напиши пост "10 вещей о [тема], которые никто не говорит вслух". Каждый пункт должен: начинаться с неожиданного или контринтуитивного утверждения, давать инсайт в 1–2 предложениях, заканчиваться коротким ударным выводом. Последний пункт — самый сильный, переворачивающий всё с ног на голову. Добавь в конце вопрос к читателям.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [тема] = «работа по найму», «партнёрский маркетинг», «искусственный интеллект для обычных людей»</div>
+      <div class="pc-why">⚡ Почему работает: списки с инсайтами — самый сохраняемый формат в ВКонтакте. Пункты читают даже те кто не читает посты целиком.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 8 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Пост-провокация</span><span class="pc-num">#08</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Напиши пост-дискуссию на острую тему [тема] для аудитории [аудитория]. Займи чёткую позицию — даже если она спорная. Объясни её логично, с примером из жизни. В середине признай слабое место своей позиции — это добавит честности. В конце задай вопрос который разделит читателей на два лагеря и заставит комментировать. Тон: уверенный, не агрессивный. Длина: 150–180 слов.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [тема] = «Пенсия — это ловушка которую государство строило для тебя 40 лет», [аудитория] = «люди 35–55 лет, задумывающиеся о будущем»</div>
+      <div class="pc-why">⚡ Почему работает: посты с чёткой позицией собирают комментарии в 5–8 раз активнее нейтральных. Алгоритм ВКонтакте любит дискуссии.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 9 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Полезный факт-пост</span><span class="pc-num">#09</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты эксперт в [область]. Напиши пост-инсайт для неспециалистов. Возьми одну нетривиальную идею из [область] и объясни её так чтобы понял школьник. Структура: 1) удивительный факт или вопрос; 2) объяснение через простую аналогию из повседневной жизни; 3) почему это важно именно сейчас; 4) один конкретный шаг который читатель может сделать сегодня. Запрещено: термины без расшифровки, «очевидно» и «как всем известно».»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [область] = «промпт-инжиниринг», [факт] = «Как правильный запрос к ИИ меняет качество ответа в 10 раз»</div>
+      <div class="pc-why">⚡ Почему работает: «объясни как школьнику» — лучший промпт для ясности. Аналогии из жизни делают сложное простым и запоминающимся.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 10 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Серия прогрева</span><span class="pc-num">#10</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты стратег воронок продаж. Создай серию из 5 постов для прогрева аудитории перед продажей [продукт]. Каждый пост — отдельный шаг трансформации читателя: от «не знаю о проблеме» к «хочу решение прямо сейчас». Для каждого поста укажи: название, главную эмоцию которую он вызывает, ключевой инсайт и переход к следующему посту. Добавь «крючок конца» — интригу в финале каждого поста чтобы читатель ждал следующего.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «партнёрство в O-KEY AI», и ты получишь готовый каркас для своей воронки в канале</div>
+      <div class="pc-why">⚡ Почему работает: «крючок конца» — приём из сериалов. Люди возвращаются за следующей серией. Именно так строят лояльную аудиторию.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ КАТЕГОРИЯ 2: ПРОДАЖИ ══════════════ -->
+<div class="section c-orange fade-in">
+  <div class="sec-header">
+    <div class="sec-ico">💰</div>
+    <div class="sec-info">
+      <div class="sec-title">Продажи и работа с клиентами</div>
+      <div class="sec-desc">Скрипты, офферы, возражения — всё что превращает интерес в оплату</div>
+    </div>
+    <div class="sec-nums">Промпты №11–20</div>
+  </div>
+  <div class="pgrid">
+
+    <!-- 11 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Скрипт переписки</span><span class="pc-num">#11</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты тренер по продажам с опытом в мессенджерах. Напиши скрипт переписки для продажи [продукт] клиенту который написал «расскажи подробнее». Сценарий: 5 сообщений от менеджера с возможными ответами клиента. Каждое сообщение не длиннее 3 предложений. Включи: один вопрос который выявляет главную боль, момент демонстрации ценности без хвастовства, мягкий переход к оплате без давления. Финал: приглашение сделать первый шаг — не "купи", а "попробуй".»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «вход в партнёрскую программу O-KEY AI» — получишь готовый диалог для бота или личной переписки</div>
+      <div class="pc-why">⚡ Почему работает: короткие сообщения не давят. Вопросы вовлекают. «Попробуй» вместо «купи» снижает барьер входа психологически.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 12 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Работа с возражениями</span><span class="pc-num">#12</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты психолог и продавец в одном лице. Клиент говорит: "[возражение]". Напиши 4 варианта ответа — разной силы и тактики: 1) мягкое согласие + переформулировка, 2) вопрос который разворачивает возражение, 3) история клиента у которого было такое же сомнение, 4) прямой честный ответ с цифрами. Для каждого объясни когда его применять и какую эмоцию у клиента он вызывает.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [возражение] = «Это дорого», «Мне надо подумать», «У меня нет времени», «Я не разбираюсь в технологиях»</div>
+      <div class="pc-why">⚡ Почему работает: 4 варианта дают выбор под ситуацию. Объяснение «когда применять» превращает ответы в настоящий инструмент, а не шпаргалку.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 13 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Автоприветствие бота</span><span class="pc-num">#13</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты UX-писатель который создаёт первые впечатления. Напиши приветственное сообщение для бота ВКонтакте. Отправитель: [имя, кто ты]. Подарок новому подписчику: [что получает]. Главный следующий шаг: [одно целевое действие]. Требования: первое предложение — неожиданное и тёплое, не "Привет, я бот". Сообщение читается за 15 секунд. В конце — одна кнопка с глаголом действия, не "OK" или "Подробнее".»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [имя] = «Юрий Гладков, инженер и партнёр O-KEY AI», [подарок] = «шпаргалка 50 промптов», [шаг] = «получить шпаргалку»</div>
+      <div class="pc-why">⚡ Почему работает: первое сообщение бота формирует всё дальнейшее доверие. Человеческий тон вместо роботного повышает вовлечённость в 2–3 раза.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 14 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Коммерческое предложение</span><span class="pc-num">#14</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты автор который пишет КП которые читают до конца. Создай короткое коммерческое предложение для [услуга]. Клиент: [описание кому]. Структура: 1) один абзац — боль которую решаешь (без слова "предлагаем"), 2) что конкретно получает клиент — в результатах, не в процессах, 3) почему ты, а не другие — одна честная причина, 4) цена + что в неё входит, 5) следующий шаг — конкретный, простой, без риска. Длина: не больше одной страницы А4.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [услуга] = «настройка ИИ-помощника для малого бизнеса», [клиент] = «владелец салона красоты который хочет автоматизировать запись»</div>
+      <div class="pc-why">⚡ Почему работает: «результаты, не процессы» — ключевой принцип. Клиент не хочет знать КАК ты работаешь. Он хочет знать ЧТО он получит.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 15 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Follow-up без давления</span><span class="pc-num">#15</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты мастер лёгких касаний. Клиент проявил интерес к [продукт], но не ответил [сколько времени]. Напиши 3 варианта follow-up сообщения — каждое с разной тактикой: 1) добавить новую ценность (инсайт или факт который он ещё не слышал), 2) убрать возможный страх (назови вслух то что его может останавливать), 3) лёгкий юмор и человечность. Ни в одном нет давления, упрёка и слова "я просто хотел уточнить".»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «партнёрство в O-KEY AI», [время] = «3 дня» — получишь три живых сообщения которые не раздражают</div>
+      <div class="pc-why">⚡ Почему работает: «я просто хотел уточнить» — худшая фраза в follow-up. Новая ценность даёт повод ответить. Юмор снимает неловкость паузы.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 16 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Продающий оффер</span><span class="pc-num">#16</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты специалист по офферам. Создай 3 варианта оффера для [продукт] — каждый с разным акцентом: 1) акцент на скорость результата, 2) акцент на безопасность и отсутствие риска, 3) акцент на трансформацию — кем станет клиент после. Для каждого: главная фраза (1 предложение), 3 буллета с конкретными выгодами, призыв к действию. Запрещено: слова "лучший", "уникальный", "эксклюзивный".»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «вход в O-KEY AI» — три оффера для разных людей: нетерпеливых, осторожных и мечтателей</div>
+      <div class="pc-why">⚡ Почему работает: разные люди покупают по разным причинам. Три варианта оффера позволяют говорить на языке каждого типа клиента.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 17 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Письмо-рассылка</span><span class="pc-num">#17</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты email-маркетолог с конверсией выше средней. Напиши письмо для рассылки по базе [аудитория] на тему [тема]. Тема письма: сделай три варианта — один вопрос, одна цифра, одна провокация. Структура письма: 1) личная история или наблюдение — 2 предложения, 2) инсайт который меняет точку зрения, 3) как это связано с [продукт/услуга], 4) один чёткий призыв. Длина письма: читается за 90 секунд. Тон: письмо от человека к человеку, не от компании к клиенту.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [аудитория] = «предприниматели которые интересовались автоматизацией», [тема] = «Как я освободил 4 часа в день не нанимая сотрудников»</div>
+      <div class="pc-why">⚡ Почему работает: три варианта темы письма — обязательный тест для профи. Разница между «плохой» и «хорошей» темой — до 40% к открываемости.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 18 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Живой кейс-отзыв</span><span class="pc-num">#18</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты умеешь писать отзывы которые звучат как настоящие, потому что они настоящие. Напиши кейс-отзыв от имени [имя, профессия, город]. До: [конкретная проблема в цифрах или деталях]. Процесс: [что сделал, что было сложно, что удивило]. После: [конкретный результат — цифры, время, ощущения]. Включи одну живую реплику «своими словами» в кавычках. Тон: так говорят обычные люди, не актёры рекламы.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [имя] = «Ольга, мама двоих детей, Новосибирск», [проблема] = «не могла позволить обучение за $1500», [результат] = «заработала первые $400 за 3 недели»</div>
+      <div class="pc-why">⚡ Почему работает: детали делают историю настоящей. «Город + профессия + конкретная цифра» — три кита доверия к отзыву.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 19 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Рекламный текст</span><span class="pc-num">#19</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты копирайтер который пишет рекламу для таргета ВКонтакте. Продукт: [продукт]. Аудитория: [описание]. Напиши 3 варианта рекламного текста — до 80 слов каждый. Вариант A: крючок через боль. Вариант B: крючок через желание. Вариант C: крючок через любопытство. В каждом: первая строка — невозможно пролистать, вторая строка — разжигает интерес, финал — один конкретный призыв с глаголом. Без восклицательных знаков — они убивают доверие.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «шпаргалка 50 промптов бесплатно», [аудитория] = «предприниматели ВКонтакте 30–50 лет»</div>
+      <div class="pc-why">⚡ Почему работает: три варианта под три типа мотивации. «Без восклицательных знаков» — правило профи. Крики в рекламе снижают CTR.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 20 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Презентация продукта</span><span class="pc-num">#20</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты питч-мастер. Напиши сценарий презентации [продукт] длиной 2–3 минуты для видео или живого выступления. Структура: 1) открывающий вопрос который бьёт в боль (5 сек), 2) «а что если бы...» — рисуй желанное будущее (20 сек), 3) почему раньше это было невозможно (20 сек), 4) что изменилось — твоё решение (40 сек), 5) доказательство — одна история одного человека (30 сек), 6) что конкретно делать прямо сейчас (25 сек). Добавь паузы и смену темпа как ремарки.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «O-KEY AI» — получишь готовый скрипт для видео-знакомства с партнёрской программой</div>
+      <div class="pc-why">⚡ Почему работает: структура «боль → мечта → барьер → решение → доказательство → шаг» — классика TED-выступлений. Работает в любом формате.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ КАТЕГОРИЯ 3: БИЗНЕС И АВТОМАТИЗАЦИЯ ══════════════ -->
+<div class="section c-blue fade-in">
+  <div class="sec-header">
+    <div class="sec-ico">🤖</div>
+    <div class="sec-info">
+      <div class="sec-title">Бизнес и автоматизация</div>
+      <div class="sec-desc">Планирование, боты, процессы — ИИ как твой бизнес-партнёр</div>
+    </div>
+    <div class="sec-nums">Промпты №21–30</div>
+  </div>
+  <div class="pgrid">
+
+    <!-- 21 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Идеи для ИИ-бизнеса</span><span class="pc-num">#21</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты бизнес-аналитик с фокусом на малый бизнес в СНГ. Предложи 5 конкретных ИИ-услуг которые можно запустить за 7 дней без технических знаний и с минимальными вложениями. Для каждой: название услуги, кому продавать (конкретная ниша), сколько брать (реальная рыночная цена), как найти первых 3 клиентов, что именно делает ИИ в этой услуге. Только реальные идеи — не "создай мобильное приложение".»</div>
+      <div class="pc-example"><strong>Результат:</strong> получишь 5 конкретных бизнес-идей с ценами, нишами и первыми шагами — можно начать сегодня без вложений</div>
+      <div class="pc-why">⚡ Почему работает: уточнение «не создай мобильное приложение» исключает фантастику. ИИ выдаёт только реалистичные идеи под твои возможности.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 22 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">90-дневный план запуска</span><span class="pc-num">#22</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты бизнес-коуч с опытом в запусках. Составь пошаговый план на 90 дней для запуска [направление/продукт]. Раздели на три фазы: дни 1–30 (тест и первые деньги), дни 31–60 (систематизация и рост), дни 61–90 (масштаб и автоматизация). В каждой фазе: 3–4 конкретных действия, метрика успеха (как ты поймёшь что всё идёт правильно), главный риск и как его избежать. Добавь список из 5 ошибок которые убивают запуск на каждой фазе.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [направление] = «оказание ИИ-услуг предпринимателям ВКонтакте»</div>
+      <div class="pc-why">⚡ Почему работает: метрики успеха и список ошибок — это то чего нет в обычных планах. С ними ты знаешь не только что делать, но и как не облажаться.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 23 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Скрипт для нейропродавца</span><span class="pc-num">#23</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты архитектор чат-ботов. Напиши полный скрипт для нейропродавца который будет общаться с потенциальными клиентами о [продукт]. Включи ветки диалога: 1) первое касание — квалификация, 2) выявление боли — 3 умных вопроса, 3) презентация решения без шаблонных фраз, 4) работа с топ-3 возражениями, 5) запись на созвон или переход к оплате. Тон бота: [описание характера — живой/деловой/дружеский]. Бот не должен звучать как бот.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «партнёрская программа O-KEY AI», [тон] = «живой, прямой, немного с юмором — как сам Юрий»</div>
+      <div class="pc-why">⚡ Почему работает: «не должен звучать как бот» — это ключевая инструкция. Человеческий тон бота повышает доверие и конверсию в диалог.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 24 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Аудит автоматизации</span><span class="pc-num">#24</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты консультант по операционной эффективности. Я опишу свой бизнес: [описание — чем занимаешься, сколько времени на что тратишь]. Найди 5 процессов которые сжирают моё время и которые ИИ может взять на себя. Для каждого процесса: сколько часов в неделю он занимает, какой ИИ-инструмент решит задачу, как именно его настроить (пошагово, простым языком), сколько времени я сэкономлю в месяц.»</div>
+      <div class="pc-example"><strong>Как использовать:</strong> опиши свой день — что делаешь, сколько времени на что тратишь. Получишь персональный аудит с конкретными инструментами.</div>
+      <div class="pc-why">⚡ Почему работает: «пошагово, простым языком» исключает абстрактные советы. ИИ даёт конкретику под твою ситуацию, а не общие рекомендации.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 25 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Структура воронки</span><span class="pc-num">#25</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты стратег воронок продаж. Построй полную воронку для [продукт] с нуля до оплаты. Аудитория: [описание]. Каналы привлечения: [ВКонтакте/бот/рассылка]. Для каждого этапа воронки укажи: название этапа, что происходит, какой контент или сообщение, сколько времени проходит, метрика (какой % переходит дальше). Добавь: где обычно «сливаются» люди и как это починить. Нарисуй схему воронки текстом.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «O-KEY AI», [аудитория] = «предприниматели и мамы в декрете», [каналы] = «бот ВКонтакте + канал»</div>
+      <div class="pc-why">⚡ Почему работает: «где сливаются и как починить» — это то за что маркетологи берут деньги. ИИ даёт это бесплатно в правильно составленном промпте.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 26 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">FAQ для бота</span><span class="pc-num">#26</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты специалист по клиентскому опыту. Составь список из 25 вопросов которые задают клиенты о [продукт/услуга]. Раздели на категории: вопросы о продукте, о цене, о процессе, о рисках, о результате. Для каждого вопроса напиши ответ длиной 2–3 предложения: честный, без уклонений, с конкретикой. Если вопрос неудобный — отвечай особенно честно. Добавь 3 вопроса которые клиенты боятся задать, но думают.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [продукт] = «партнёрство в O-KEY AI» — получишь готовую базу знаний для твоего бота ВКонтакте</div>
+      <div class="pc-why">⚡ Почему работает: «вопросы которые боятся задать» — золото. Ответив на скрытые страхи публично, ты снимаешь барьер у 80% сомневающихся.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 27 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Прайс-лист услуг</span><span class="pc-num">#27</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты ценовой стратег. Помоги мне создать трёхуровневый прайс для услуг в нише [ниша]. Пакет «Старт»: для тех кто хочет попробовать, Пакет «Рост»: основной продукт, Пакет «VIP»: максимальный результат. Для каждого: название которое продаёт, перечень того что входит, цена с психологическим обоснованием, для кого он идеален (одно предложение-портрет). Добавь: как объяснить разницу в ценах клиенту не обесценивая дешёвый пакет.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [ниша] = «настройка ИИ-инструментов для малого бизнеса» или «ведение социальных сетей с помощью ИИ»</div>
+      <div class="pc-why">⚡ Почему работает: три пакета — стандарт индустрии. Большинство покупают средний. «Психологическое обоснование цены» делает её справедливой в глазах клиента.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 28 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Партнёрское письмо</span><span class="pc-num">#28</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты специалист по B2B-коммуникациям. Напиши письмо потенциальному партнёру или коллаборации. Я: [кто ты, что делаешь]. Они: [кто они, чем занимаются]. Предложение: [что предлагаешь взамен чего]. Структура: 1) что общего между нами (точка контакта), 2) конкретная идея сотрудничества с выгодой ДЛЯ НИХ, 3) что нужно сделать чтобы начать — один простой шаг. Длина: читается за 1 минуту. Тон: уважительный, уверенный, без подлизывания.»</div>
+      <div class="pc-example"><strong>Пример:</strong> написать блогеру предложение продвигать O-KEY AI в обмен на партнёрский процент — всё уже в шаблоне</div>
+      <div class="pc-why">⚡ Почему работает: «выгода для них» стоит на первом месте. Большинство делают наоборот и проигрывают. Эта структура работает в любой нише.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 29 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Анализ конкурентов</span><span class="pc-num">#29</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты маркетинговый аналитик. Я расскажу тебе о своих конкурентах в нише [ниша]: [перечисли 2–3 конкурента и что ты о них знаешь]. Помоги мне: 1) найти то что они делают хорошо и чему стоит поучиться, 2) найти их слабые места где я могу занять нишу, 3) сформулировать моё уникальное отличие которое сложно скопировать, 4) придумать одно позиционирование которое сделает сравнение со мной невыгодным для конкурентов.»</div>
+      <div class="pc-example"><strong>Как использовать:</strong> опиши конкурентов своими словами — что ты видел в их каналах, постах, офферах. ИИ сделает разбор и найдёт твою нишу.</div>
+      <div class="pc-why">⚡ Почему работает: «позиционирование которое делает сравнение невыгодным» — это игра не "быть лучше", а "быть другим". Профессиональный маркетинговый ход.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 30 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Нейминг и слоган</span><span class="pc-num">#30</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты креативный директор с опытом в брендинге. Помоги назвать [проект/канал/услугу] в нише [ниша]. Аудитория: [описание]. Характер бренда: [3 прилагательных — каким он должен быть]. Придумай 10 вариантов названия — разных по типу: буквальные, метафоричные, эмоциональные, провокационные. Для топ-3 напиши слоган (до 7 слов) и объясни почему это название сработает именно с этой аудиторией.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [проект] = «мой канал об ИИ и заработке», [ниша] = «ИИ для обычных людей», [характер] = «живой, честный, практичный»</div>
+      <div class="pc-why">⚡ Почему работает: «объясни почему сработает» — это не просто список слов. Ты получаешь обоснование и можешь выбрать осознанно, а не на вкус.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ КАТЕГОРИЯ 4: МАРКЕТПЛЕЙСЫ И ФРИЛАНС ══════════════ -->
+<div class="section c-teal fade-in">
+  <div class="sec-header">
+    <div class="sec-ico">🛍️</div>
+    <div class="sec-info">
+      <div class="sec-title">Маркетплейсы и фриланс</div>
+      <div class="sec-desc">Карточки товаров, портфолио, заявки — ИИ делает за тебя рутину</div>
+    </div>
+    <div class="sec-nums">Промпты №31–40</div>
+  </div>
+  <div class="pgrid">
+
+    <!-- 31 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Карточка для WB/Ozon</span><span class="pc-num">#31</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты SEO-копирайтер специализирующийся на маркетплейсах. Напиши продающую карточку товара для Wildberries/Ozon. Товар: [название и основные характеристики]. Целевая аудитория покупателя: [кто покупает и зачем]. SEO-ключи включи естественно — не перечнем в конце, а внутри текста. Структура: 1) первый абзац — главная выгода и кому подойдёт, 2) характеристики через призму пользы (не "размер 30х40", а "помещается в любую сумку"), 3) финал — снятие последнего сомнения перед покупкой. Объём: 800–1000 знаков.»</div>
+      <div class="pc-example"><strong>Профи-фишка:</strong> «характеристики через призму пользы» — это то что отличает карточку за 50$ от карточки за 150$. Продавцы WB платят за это хорошие деньги.</div>
+      <div class="pc-why">⚡ Почему работает: «характеристика → польза» превращает сухой список в причину купить. Это главный навык копирайтера маркетплейсов.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 32 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Ответ на негативный отзыв</span><span class="pc-num">#32</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты специалист по управлению репутацией. Клиент оставил негативный отзыв: "[текст отзыва]". Напиши ответ который: 1) принимает эмоцию клиента без оправданий, 2) берёт ответственность там где она есть, 3) предлагает конкретное решение (не "свяжитесь с нами"), 4) оставляет ощущение что компания живая и честная, а не роботизированная. Дополнительно: напиши версию которая превратит этот отзыв в точку доверия для других покупателей читающих его.»</div>
+      <div class="pc-example"><strong>Пример отзыва:</strong> «Товар пришёл не того цвета, неделю ждал ответа от поддержки — ноль реакции, деньги на ветер!»</div>
+      <div class="pc-why">⚡ Почему работает: «превратить в точку доверия» — гениальный рефрейм. Плохой отзыв с хорошим ответом конвертирует лучше, чем пять хороших без ответа.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 33 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Портфолио фрилансера</span><span class="pc-num">#33</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты HR-консультант и карьерный коуч. Помоги мне написать текст о себе для портфолио. Моя специализация: [что умею]. Опыт: [кратко — что делал, с кем работал]. Результаты: [конкретные примеры — цифры, кейсы]. Напиши три версии текста «О себе»: 1) для сайта (150 слов — вызывает доверие), 2) для Telegram-канала (3–4 предложения — цепляет), 3) для Авито/фриланс-биржи (80 слов — сразу к делу). В каждой версии — уникальное открывающее предложение.»</div>
+      <div class="pc-example"><strong>Пример:</strong> даже если у тебя нет опыта — опиши что ты учился делать с помощью O-KEY AI. ИИ превратит это в убедительное портфолио для первых клиентов.</div>
+      <div class="pc-why">⚡ Почему работает: три версии под три платформы. Одно «О себе» для всех — ошибка новичка. Профи адаптирует под контекст каждой площадки.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 34 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Заявка на проект</span><span class="pc-num">#34</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты эксперт по заявкам на фриланс-биржах с конверсией выше 40%. Напиши заявку на проект. Описание проекта: [вставь текст задания]. Мои навыки: [что умею]. Структура заявки: 1) первое предложение — покажи что прочитал задание и понял главную боль заказчика, 2) один конкретный вопрос который показывает экспертизу, 3) мини-план как ты подойдёшь к задаче (3 шага), 4) призыв к следующему шагу. Длина: 120–150 слов. Без слов "готов", "могу помочь", "хотел бы".»</div>
+      <div class="pc-example"><strong>Запрещённые слова:</strong> «готов», «могу помочь», «хотел бы» — эти слова снижают статус. Профи говорит что он ДЕЛАЕТ, а не что он ХОЧЕТ.</div>
+      <div class="pc-why">⚡ Почему работает: «вопрос который показывает экспертизу» отличает тебя от 90% заявок. Заказчик видит что ты думаешь, а не просто откликаешься.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 35 -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Описание услуги на Авито</span><span class="pc-num">#35</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты копирайтер знающий как работает Авито. Напиши объявление об услуге: [услуга]. Заголовок: должен содержать главный ключ и выгоду — не «Помогу с текстами», а «Карточки товаров для WB — рост продаж от 30%». Описание: 1) кому это нужно (один портрет клиента), 2) что конкретно получишь, 3) почему именно я, 4) как начать прямо сейчас. Добавь: что НЕ входит в услугу — это снимает 80% вопросов и отсеивает неподходящих клиентов.»</div>
+      <div class="pc-example"><strong>Профи-фишка:</strong> «Что НЕ входит» — это мощный приём. Он экономит твоё время и показывает что ты эксперт у которого чёткие условия.</div>
+      <div class="pc-why">⚡ Почему работает: заголовок с выгодой вместо описания услуги — это разница между «не звонят» и «очередь на неделю вперёд». Авито любит конкретику.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <!-- 36–40: продолжение -->
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">SEO-заголовки WB</span><span class="pc-num">#36</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты SEO-специалист маркетплейсов. Придумай 7 вариантов заголовка для товара [название] на Wildberries. Главный ключевой запрос: [ключ]. Для каждого заголовка: включи ключ естественно, добавь характеристику которая принимает решение о покупке, уложись в 60 символов. После каждого варианта объясни в 1 предложении его сильную сторону. Отметь топ-2 для теста.»</div>
+      <div class="pc-example"><strong>Почему 7 вариантов:</strong> хороший SEO-специалист тестирует заголовки. Попросив объяснение каждого — ты понимаешь логику и учишься думать как профи.</div>
+      <div class="pc-why">⚡ Почему работает: «отметь топ-2» — ИИ сам делает первичный отбор. Ты получаешь не просто список, а рекомендацию к действию.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Концепция ИИ-услуги</span><span class="pc-num">#37</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты продуктовый менеджер в сфере ИИ-услуг. Помоги мне упаковать услугу для продажи малому бизнесу в нише [ниша]. Создай: 1) название услуги которое понимает даже ИП без технического образования, 2) одностраничное описание в формате «что это — зачем тебе — как работает — что получаешь», 3) цену с тремя уровнями и обоснованием, 4) топ-3 возражения которые возникнут и как на них отвечать, 5) как найти первые 5 клиентов за 2 недели без рекламного бюджета.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [ниша] = «рестораны и кафе», «стоматологии», «репетиторы», «мастера маникюра» — любой малый бизнес</div>
+      <div class="pc-why">⚡ Почему работает: «понятное даже ИП» — жёсткий критерий ясности. Если ИП понял — купит. Если не понял — ушёл к конкуренту.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Канал в Telegram</span><span class="pc-num">#38</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты стратег Telegram-каналов. Помоги мне создать описание и концепцию канала. Автор: [кто ты, чем занимаешься]. Аудитория: [кому канал]. Ценность: [чему научишь или что дашь]. Напиши: 1) описание канала (до 200 знаков — уместится в шапку), 2) закреплённое первое сообщение (знакомство + что здесь будет + подарок за подписку), 3) первые 5 тем для постов которые сразу покажут экспертизу, 4) одна идея для регулярной рубрики которую будут ждать.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [автор] = «Юрий Гладков, партнёр O-KEY AI и инженер с 33-летним опытом», [ценность] = «как обычные люди зарабатывают с ИИ»</div>
+      <div class="pc-why">⚡ Почему работает: «рубрика которую будут ждать» — это подписка ради следующего выпуска. Самый мощный инструмент удержания аудитории.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Договор-оферта</span><span class="pc-num">#39</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты юрист который умеет писать документы для людей, а не для судей. Составь простой договор-оферту для оказания услуги [услуга]. Включи: предмет договора простым языком (что именно я делаю), стоимость и порядок оплаты, что я обязуюсь сделать и в какой срок, что НЕ входит в услугу, порядок отмены и возврата, ответственность сторон — честно и без ухищрений. Язык: понятен обычному человеку. Длина: 1–1,5 страницы А4.»</div>
+      <div class="pc-example"><strong>Важно:</strong> такой договор — твоя защита от конфликтов. Клиент прочитал и подписал — он понял за что платит. Это снимает 90% споров до их возникновения.</div>
+      <div class="pc-why">⚡ Почему работает: «для людей, а не для судей» — ключевая инструкция. Простой договор читают и понимают. Сложный — игнорируют, а потом спорят.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Реклама ИИ-услуги</span><span class="pc-num">#40</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты рекламный стратег со специализацией на ИИ-услугах. Напиши рекламный текст для продвижения услуги [услуга] аудитории [аудитория]. Длина: до 90 слов. Первая строка должна описывать ситуацию в которой сейчас находится клиент — без вопросительного знака, утвердительно (люди узнают себя в утверждениях, а не в вопросах). Вторая часть: что изменится — конкретно, без воды. Призыв: одно действие с конкретной выгодой за него.»</div>
+      <div class="pc-example"><strong>Профи-фишка:</strong> «утвердительно, без вопроса» — это мощное открытие. «Ты тратишь 4 часа на переписку каждый день» работает сильнее чем «Ты устал от переписки?»</div>
+      <div class="pc-why">⚡ Почему работает: утверждение создаёт узнавание. Читатель думает «откуда он знает?» и дочитывает до конца. Вопрос — защита. Утверждение — зеркало.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ КАТЕГОРИЯ 5: ЖИЗНЬ ══════════════ -->
+<div class="section c-pink fade-in">
+  <div class="sec-header">
+    <div class="sec-ico">🌱</div>
+    <div class="sec-info">
+      <div class="sec-title">Жизнь и личная эффективность</div>
+      <div class="sec-desc">ИИ как личный помощник — питание, путешествия, решения, хобби</div>
+    </div>
+    <div class="sec-nums">Промпты №41–50</div>
+  </div>
+  <div class="pgrid">
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Персональное питание</span><span class="pc-num">#41</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты нутрициолог-практик без фанатизма. Составь план питания на 7 дней для человека с параметрами: [возраст, вес, цель]. Продукты которые есть сейчас: [список]. Продукты которые категорически не нравятся: [список]. Бюджет в неделю: [сумма]. Для каждого дня: завтрак-обед-ужин с указанием порций в граммах, КБЖУ и временем приготовления. Добавь: один лайфхак по заготовке еды который сэкономит 3 часа в неделю.»</div>
+      <div class="pc-example"><strong>Почему это работает лучше диетолога:</strong> ИИ не осуждает, учитывает все твои пожелания сразу и даёт план с первого запроса — без 3 приёмов и очереди.</div>
+      <div class="pc-why">⚡ Почему работает: «лайфхак по заготовке» — это то что делает план выполнимым. Без этого любая диета рушится на третий день.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Рецепт из холодильника</span><span class="pc-num">#42</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты шеф-повар который умеет готовить из того что есть. Вот что у меня в холодильнике: [перечисли]. Придумай 2 блюда: одно — быстрое (до 20 минут), второе — для особого случая (можно дольше). Для каждого: пошаговый рецепт, совет по подаче который сделает блюдо красивым, и одна неочевидная замена на случай если какого-то ингредиента не хватает. Тон: как рассказывал бы друг-повар, а не кулинарная книга.»</div>
+      <div class="pc-example"><strong>Как использовать:</strong> Сфотографируй содержимое холодильника, перечисли что видишь — и через 30 секунд у тебя два рецепта под конкретный набор продуктов.</div>
+      <div class="pc-why">⚡ Почему работает: «тон как друг-повар» снимает скучную инструктажность. Блюда которые описаны с душой — готовят чаще и с удовольствием.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Анализ договора</span><span class="pc-num">#43</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты юрист который объясняет сложное простыми словами. Прочитай этот договор: [вставь текст]. Ответь на четыре вопроса: 1) что я обязуюсь сделать и что в ответ обязуются они, 2) какие пункты несут риск для меня и почему, 3) что можно попросить изменить и как это сформулировать в письме, 4) есть ли что-то что в договоре НЕ написано, но должно быть — и почему это важно. Объясняй как будто мне 14 лет.»</div>
+      <div class="pc-example"><strong>Экономия:</strong> консультация юриста стоит от 3 000 рублей за час. ИИ делает первичный анализ за 30 секунд. Это не замена юриста — это фильтр перед ним.</div>
+      <div class="pc-why">⚡ Почему работает: «объясняй как 14-летнему» — лучший индикатор ясности. Если подросток понял — ты тоже всё правильно понял и не пропустил скрытый риск.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Планирование путешествия</span><span class="pc-num">#44</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты опытный тревел-планировщик который сам объездил [направление]. Составь маршрут на [количество] дней для [количество] человек. Бюджет: [сумма]. Интересы: [список — природа/культура/еда/активный отдых]. Для каждого дня: утро-день-вечер с конкретными местами (не "посетите музей", а название и почему именно он), один лайфхак для экономии, одна ошибка туриста которую не стоит делать. Добавь: лучший месяц для поездки и почему именно он.»</div>
+      <div class="pc-example"><strong>Для Юрия:</strong> замени [направление] на «рыбалка в Сибири» или «семейный отдых на море» — получишь маршрут под своё хобби и мечту</div>
+      <div class="pc-why">⚡ Почему работает: «ошибка туриста» в каждом дне — это то что отличает этот промпт от обычного запроса. Реальные советы, а не рекламные буклеты.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Репетитор для детей</span><span class="pc-num">#45</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты терпеливый учитель который умеет объяснять детям. Объясни [тема, предмет] для ученика [класс]. Стиль: через аналогию с чем-то из обычной жизни ребёнка. Сначала объяснение, потом — 3 примера от простого к сложному, потом — 2 задачки для проверки. Если ребёнок скажет "я не понимаю" — объясни иначе через другую аналогию. Добавь: один способ запомнить это правило навсегда (мнемоника или ассоциация).»</div>
+      <div class="pc-example"><strong>Как использовать:</strong> вставь тему с домашнего задания ребёнка и получи объяснение лучше чем в учебнике — терпеливо, без осуждения, столько раз сколько нужно.</div>
+      <div class="pc-why">⚡ Почему работает: «объясни иначе если не понял» — это живое репетиторство. ИИ не устаёт, не раздражается и не берёт 1 500 рублей в час.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Помощник рыбака и охотника</span><span class="pc-num">#46</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты опытный рыбак и охотник который знает [регион] как свои пять пальцев. Помоги мне подготовиться к [рыбалке/охоте] в [регион] в [месяц]. Скажи: 1) что сейчас клюёт/водится и в каких местах, 2) какие снасти/экипировку взять именно под этот сезон, 3) разрешения и лицензии — что нужно оформить заранее, 4) лучшее время суток для выхода, 5) одна хитрость которую знают только местные. Добавь: что взять из провизии для однодневного выезда на природу.»</div>
+      <div class="pc-example"><strong>Для Юрия лично:</strong> это промпт для твоей мечты — рыбалка которая уже в плане. ИИ поможет подготовиться к каждой поездке как опытный напарник.</div>
+      <div class="pc-why">⚡ Почему работает: «хитрость которую знают только местные» — это вопрос который вытаскивает настоящее знание, а не туристические брошюры.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Сложное решение</span><span class="pc-num">#47</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты мудрый советник без личных интересов. Мне нужно принять решение о [ситуация]. Я расскажу тебе всё что знаю: [опиши ситуацию]. Помоги мне: 1) сформулировать настоящий вопрос (часто мы думаем о не той проблеме), 2) найти плюсы и минусы каждого варианта — включая неочевидные, 3) задать себе три вопроса которые я боюсь задать, 4) понять чего я боюсь на самом деле и насколько этот страх реален, 5) предложить вариант который я ещё не рассматривал.»</div>
+      <div class="pc-example"><strong>Пример:</strong> «Уволиться с работы и уйти в партнёрский бизнес или остаться ещё год?» — ИИ разберёт это глубже чем большинство людей вокруг тебя.</div>
+      <div class="pc-why">⚡ Почему работает: «сформулировать настоящий вопрос» — это мета-уровень. Часто мы решаем не ту проблему. ИИ без эмоций помогает увидеть настоящую.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Изучение нового навыка</span><span class="pc-num">#48</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты эксперт в обучении взрослых. Я хочу освоить [навык/тема] с нуля за [срок]. У меня есть [время в день]. Составь план обучения: разбей на недели, каждую неделю — конкретная тема, конкретный практический результат который я достигну, бесплатные ресурсы (YouTube, статьи, инструменты). Добавь: 1) одну ошибку которую делают 90% самоучек, 2) как понять что я достиг уровня за который можно просить деньги, 3) первый платный проект который я смогу взять после обучения.»</div>
+      <div class="pc-example"><strong>Пример замены:</strong> [навык] = «промпт-инжиниринг для продаж», [срок] = «30 дней», [время] = «40 минут в день» — получишь конкретный план с первым клиентом в конце</div>
+      <div class="pc-why">⚡ Почему работает: «первый платный проект» — это конкретный финал. Учёба без применения теряет смысл. ИИ сразу строит мост между знанием и деньгами.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Астрология и нумерология</span><span class="pc-num">#49</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты эксперт в астрологии и нумерологии. Сделай персональный разбор для человека: дата рождения [дата], имя [имя]. Включи: 1) число жизненного пути и что оно говорит о характере и предназначении, 2) сильные стороны и скрытые таланты которые стоит развивать, 3) главные вызовы в жизни — не как приговор, а как точки роста, 4) благоприятные направления для бизнеса и дохода, 5) совет для текущего периода жизни основанный на нумерологическом году. Объясняй практично — что с этим делать, а не просто что это значит.»</div>
+      <div class="pc-example"><strong>Для клиентов:</strong> это готовая ИИ-услуга. Нумерологический разбор за $30–50 — люди покупают охотно. Ты даёшь вводные, ИИ делает разбор, ты оформляешь.</div>
+      <div class="pc-why">⚡ Почему работает: «что с этим делать, а не что это значит» — это разница между гороскопом в журнале и настоящей консультацией. Практичность = ценность.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+    <div class="pc">
+      <div class="pc-head"><span class="pc-tag">Садоводу и огороднику</span><span class="pc-num">#50</span></div>
+      <div class="pc-what">Что делает</div>
+      <div class="pc-prompt">«Ты агроном-практик с 20-летним опытом в [климатическая зона/регион]. Помоги мне с огородом/садом. Моя ситуация: [что растёт, какие проблемы, площадь, регион]. Скажи мне: 1) что нужно сделать прямо сейчас в этом сезоне, 2) какие ошибки я скорее всего делаю — назови 3 самые частые в моём регионе, 3) чем подкормить [культура] чтобы урожай вырос в 2 раза, 4) от каких вредителей защититься сейчас и чем — желательно без химии, 5) один секрет опытных садоводов который мало кто знает.»</div>
+      <div class="pc-example"><strong>Для клиентов любителей природы:</strong> это промпт который можно продавать садовым магазинам, дачным сообществам и клубам огородников как готовую услугу.</div>
+      <div class="pc-why">⚡ Почему работает: «секрет который мало кто знает» — всегда самый читаемый пункт. Люди приходят за экспертизой, а не за тем что и так знают.</div>
+      <button class="pc-copy" onclick="cp(this)">Скопировать промпт</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER CTA ══════════════ -->
+<div class="footer-section fade-in">
+  <div class="footer-cta">
+    <h2>Хочешь применять эти промпты<br><em>и ещё зарабатывать на них?</em></h2>
+    <p>Юрий Гладков использует O-KEY AI каждый день — для бизнеса, для жизни и для того чтобы наконец жить так как хочется. Узнай как присоединиться.</p>
+    <a href="https://o-key.ai/invite/acba" target="_blank" class="cta-btn">Присоединиться к O-KEY AI →</a>
+    <div class="cta-note">$199 разово · $59 в месяц · Обучение $3 000+ в подарок</div>
+  </div>
+  <div style="text-align:center;padding:28px 0 20px;font-size:13px;color:var(--muted);">
+    Подарок от <strong style="color:var(--text);">Юрия Гладкова</strong> · O-KEY AI партнёр · <a href="https://o-key.ai/invite/acba" target="_blank" style="color:var(--lime);text-decoration:none;font-weight:700;">o-key.ai/invite/acba</a>
+  </div>
+</div>
+
+<script>
+// Copy prompt text
+function cp(btn) {
+  const card = btn.closest('.pc');
+  const prompt = card.querySelector('.pc-prompt').textContent.trim();
+  navigator.clipboard.writeText(prompt).then(() => {
+    btn.textContent = '✓ Скопировано!';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'Скопировать промпт'; btn.classList.remove('ok'); }, 2200);
+  });
+}
+
+// Scroll fade-in
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i * 80);
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
